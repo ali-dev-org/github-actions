@@ -1,0 +1,27 @@
+name: CI-Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: download-code
+        uses: actions/checkout@v3
+
+      - name: setup-go
+        uses: actions/setup-go@v3
+        with: 
+          go-version: '1.18'
+          check-latest: true
+          cache: true
+
+      - name: test-code
+        run: go test -v
